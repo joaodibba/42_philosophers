@@ -6,7 +6,7 @@
 #    By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 18:24:09 by jalves-c          #+#    #+#              #
-#    Updated: 2023/10/18 18:31:26 by jalves-c         ###   ########.fr        #
+#    Updated: 2023/10/18 21:37:58 by jalves-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,9 @@ CC		= @cc
 FLAGS	= -Wall -Wextra -Werror -pthread -g -fsanitize=address
 OBJ  	= $(patsubst src/%.c, obj/%.o, $(SRC))
 SRC		:=	src/core/main.c \
-			src/utils/utils.c
+			src/core/validations.c \
+			src/utils/utils.c \
+			src/utils/error.c
 
 # COLORS
 RED     = \033[0;31m
