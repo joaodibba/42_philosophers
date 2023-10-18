@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:19:04 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/18 21:53:43 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/10/18 22:01:12 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,17 @@ void	ft_putchar_fd(char c, int fd)
 
 void	put_error(int errno)
 {
-	ft_putstr_fd(RED, 2);
-	ft_putstr_fd("ERROR: ", 2);
-	ft_putstr_fd(RESET, 2);
+	ft_putstr_fd(RED, STDOUT);
+	ft_putstr_fd("ERROR: ", STDOUT);
+	ft_putstr_fd(RESET, STDOUT);
 	if (errno == WRONG_ARGUMENTS)
 	{
-		ft_putstr_fd("./philo <number_of_philosophers> <time_to_die> ", 2);
-		ft_putstr_fd("<time_to_eat> <time_to_sleep> ", 2);
-		ft_putendl_fd("[number_of_times_each_philosopher_must_eat]", 2);
+		ft_putstr_fd("./philo <number_of_philosophers> <time_to_die> ", STDOUT);
+		ft_putstr_fd("<time_to_eat> <time_to_sleep> ", STDOUT);
+		ft_putendl_fd("[number_of_times_each_philosopher_must_eat]", STDOUT);
 	}
 	else if (errno == ARGUMENTS_NOT_NUMBERS)
-		ft_putendl_fd("ARGUMENTS MUST BE NUMBERS", 2);
+		ft_putendl_fd("ARGUMENTS MUST BE NUMBERS", STDOUT);
 	else if (errno == ARGUMENTS_NOT_POSITIVE_INTEGER)
-		ft_putendl_fd("ARGUMENTS MUST BE POSITIVE INTEGERS", 2);
+		ft_putendl_fd("ARGUMENTS MUST BE POSITIVE INTEGERS", STDOUT);
 }

@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:28:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/18 21:57:36 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/10/18 22:00:40 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,14 @@
 # define RESET "\e[0;37m"
 # define CLEAR "\033c"
 
+// macros -> error codes
 # define WRONG_ARGUMENTS 1
 # define ARGUMENTS_NOT_NUMBERS 2
 # define ARGUMENTS_NOT_POSITIVE_INTEGER 3
+
+// macros -> fd
+# define STDOUT 1
+# define STDERR 2
 
 typedef struct s_data
 {
