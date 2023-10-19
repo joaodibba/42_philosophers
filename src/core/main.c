@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:15:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/18 21:57:24 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:28:02 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	assign_data(int ac, char **av)
 
 bool	argument_check(int ac, char **av)
 {
-	if (av++ && ac-- && (ac == 5 || ac == 4))
+	if (ac == 6 || ac == 5)
 	{
+		av++;
+		ac--;
 		if (arguments_are_numbers(ac, av) == false)
 		{
 			put_error(ARGUMENTS_NOT_NUMBERS);

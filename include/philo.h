@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:28:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/18 22:00:40 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 20:21:50 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <pthread.h>
+# include <sys/time.h>
+# include <stdio.h>
 
 // macros
 # define RED "\e[0;31m"

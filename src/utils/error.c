@@ -6,16 +6,15 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:19:04 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/18 22:01:12 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/10/19 18:45:47 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/philo.h"
 
-void	ft_putendl_fd(char *s, int fd)
+void	ft_putchar_fd(char c, int fd)
 {
-	ft_putstr_fd(s, fd);
-	ft_putchar_fd('\n', fd);
+	write(fd, &c, 1);
 }
 
 void	ft_putstr_fd(char *s, int fd)
@@ -24,9 +23,10 @@ void	ft_putstr_fd(char *s, int fd)
 		ft_putchar_fd(*s++, fd);
 }
 
-void	ft_putchar_fd(char c, int fd)
+void	ft_putendl_fd(char *s, int fd)
 {
-	write(fd, &c, 1);
+	ft_putstr_fd(s, fd);
+	ft_putchar_fd('\n', fd);
 }
 
 void	put_error(int errno)
