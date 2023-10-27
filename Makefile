@@ -6,18 +6,23 @@
 #    By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 18:24:09 by jalves-c          #+#    #+#              #
-#    Updated: 2023/10/18 21:37:58 by jalves-c         ###   ########.fr        #
+#    Updated: 2023/10/26 19:32:57 by jalves-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
 CC		= @cc
-FLAGS	= -Wall -Wextra -Werror -pthread -g -fsanitize=address
+FLAGS	= -Wall -Wextra  -pthread -g -fsanitize=address #-Werror
 OBJ  	= $(patsubst src/%.c, obj/%.o, $(SRC))
 SRC		:=	src/core/main.c \
 			src/core/validations.c \
 			src/utils/utils.c \
-			src/utils/error.c
+			src/utils/error.c \
+			src/setup/dinner_time.c \
+			src/setup/setup_list.c \
+			src/utils/clean.c \
+			src/threads/philo.c \
+			src/utils/time.c
 
 # COLORS
 RED     = \033[0;31m

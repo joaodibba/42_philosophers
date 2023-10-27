@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:19:04 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/19 18:45:47 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/10/23 13:49:52 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,7 @@ void	put_error(int errno)
 		ft_putendl_fd("ARGUMENTS MUST BE NUMBERS", STDOUT);
 	else if (errno == ARGUMENTS_NOT_POSITIVE_INTEGER)
 		ft_putendl_fd("ARGUMENTS MUST BE POSITIVE INTEGERS", STDOUT);
+	else if (errno == PHILO_VALUE_TOO_BIG)
+		ft_putendl_fd("<number_of_philosophers> SHOULDN'T BE MORE THAN 200", \
+		STDOUT);
 }

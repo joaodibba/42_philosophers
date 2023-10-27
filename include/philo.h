@@ -6,21 +6,27 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:28:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/19 20:21:50 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/10/26 18:50:41 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
+# include "stuctures.h"
 # include <unistd.h>
+# include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
 # include <pthread.h>
 # include <sys/time.h>
+# include <stdint.h>
 # include <stdio.h>
 
 // macros
+# define MAX_PHILO 200
+
+// macros -> printf colors
 # define RED "\e[0;31m"
 # define GREEN "\e[0;32m"
 # define BLUE "\e[0;34m"
@@ -33,34 +39,43 @@
 # define WRONG_ARGUMENTS 1
 # define ARGUMENTS_NOT_NUMBERS 2
 # define ARGUMENTS_NOT_POSITIVE_INTEGER 3
+# define PHILO_VALUE_TOO_BIG 4
 
 // macros -> fd
 # define STDOUT 1
 # define STDERR 2
-
-typedef struct s_data
-{
-	int		philosopher_count;
-	int		time_to_die;
-	int		time_to_eat;
-	int		time_to_sleep;
-	int		meal_count;	
-}				t_data;
-
-// structure
-t_data	*data(void);
 
 // utils
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 void	put_error(int errno);
-
-// validations
-bool	arguments_are_within_integer_positive_range(int ac, char **av);
-bool	arguments_are_numbers(int ac, char **av);
 int		ft_atoi(const char *str);
 long	int	long_atoi(const char *str);
 int		ft_isdigit(int x);
+t_host	*host(void);
+void	wash_the_dishes(void);
+void	goodbye(void);
+void	print_list(t_node *head);
+
+// validations
+bool	argument_check(int ac, char **av);
+bool	arguments_are_within_integer_positive_range(int ac, char **av);
+bool	arguments_are_numbers(int ac, char **av);
+
+// setup
+void	dinner_time(void);
+void	initialize_list(void);
+void	create_list(void);
+void	insert_at_end(t_node	**head);
+t_node	*find_tail(t_node	*head);
+t_node	*create_node(void);
+void	create_philo_node(t_node *node, unsigned int id);
+void	create_fork_node(t_node *node, unsigned	int owner);
+void	*routine(void	*arg);
+
+// time
+u_int64_t	get_time(void);
+u_int64_t	get_current_time(void);
 
 #endif
