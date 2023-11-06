@@ -6,11 +6,11 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 21:30:35 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/25 23:45:21 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:40:51 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include "philo.h"
 
 bool	arguments_are_within_integer_positive_range(int ac, char **av)
 {

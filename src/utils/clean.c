@@ -6,11 +6,11 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:07:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/26 18:44:52 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:40:23 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include "philo.h"
 
 void	wash_the_dishes(void)
 {
@@ -21,6 +21,8 @@ void	wash_the_dishes(void)
 	{
 		if (current->type == FORK)
 			pthread_mutex_destroy(&current->u_data.fork.mutex);
+		else if (current->type == PHILO)
+			pthread_mutex_destroy(&current->u_data.philo.mutex);
 		current = current->next;
 		if (current == host()->head)
 			break ;

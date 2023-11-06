@@ -6,11 +6,11 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 21:31:59 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/26 18:50:33 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:41:21 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include "philo.h"
 
 t_host	*host(void)
 {

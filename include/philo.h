@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:28:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/26 18:50:41 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:20:27 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,20 @@ void	dinner_time(void);
 void	initialize_list(void);
 void	create_list(void);
 void	insert_at_end(t_node	**head);
-t_node	*find_tail(t_node	*head);
 t_node	*create_node(void);
 void	create_philo_node(t_node *node, unsigned int id);
 void	create_fork_node(t_node *node, unsigned	int owner);
+void	baby_sitting(void);
 void	*routine(void	*arg);
 
 // time
 u_int64_t	get_time(void);
 u_int64_t	get_current_time(void);
+void		ft_sleep(uint64_t time_to_sleep);
+
+// routine
+void	contemplate(t_node	*node);
+void	nap(t_node	*node);
+void	devour(t_node	*node);
 
 #endif

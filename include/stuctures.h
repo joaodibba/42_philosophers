@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 21:13:36 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/26 19:30:54 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/10/31 21:40:24 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_philo_state
 	THINK ,
 	EAT ,
 	SLEEP ,
+	FULL
 }	t_philo_state;
 
 typedef enum e_type
@@ -42,13 +43,12 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				id;
 	unsigned int	meal_count;
+	pthread_mutex_t	mutex;
 	u_int64_t		last_meal;
 	t_philo_state	state;
 }					t_philo;
 
 // FORK STRUCTURE
-
-// TODO
 typedef struct s_fork
 {
 	int				owner;

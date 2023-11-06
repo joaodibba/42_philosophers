@@ -6,11 +6,11 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:36:09 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/27 15:12:09 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:40:54 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include "philo.h"
 
 void	create_fork_node(t_node *node, unsigned	int owner)
 {
@@ -38,9 +38,13 @@ void	create_philo_node(t_node *node, unsigned int id)
 		// put_error
 		// exit the program
 	}
-
+	if (pthread_mutex_init(&node->u_data.philo.mutex, NULL) != 0)
+	{
+		// creation of fork failed, deal with it
+		// put_error
+		// exit the program
+	}
 }
-
 
 void	wait_for_guests(void)
 {
@@ -61,31 +65,10 @@ void	wait_for_guests(void)
 	}
 }
 
-void	monitor_guests(void)
-{
-	t_node *node;
-
-	node = host()->head;
-	while (node)
-	{
-		if (node->type == PHILO)
-		{
-			if (node->u_data.philo.last_meal != 0 && (get_current_time() - node->u_data.philo.last_meal >= host()->time_to_die))
-			{
-				node->u_data.philo.state = DEAD;
-				printf("%llu"RED" %d"RESET" died\n", get_time(), node->u_data.philo.id);
-				// free shit before
-				exit(1);
-			}
-		}
-		node = node->next;
-	}
-}
-
 void	dinner_time(void)
 {
 	create_list();
 	initialize_list();
-	monitor_guests();
+	baby_sitting();
 	wait_for_guests();
 }

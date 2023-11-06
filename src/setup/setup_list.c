@@ -6,11 +6,11 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:46:20 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/26 21:05:06 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 17:20:23 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include "philo.h"
 
 t_node	*create_node(void)
 {
@@ -24,17 +24,6 @@ t_node	*create_node(void)
 	return (node);
 }
 
-t_node	*find_tail(t_node	*head)
-{
-	t_node	*current;
-
-	current = head;
-	if (current == NULL)
-		return (NULL);
-	while (current->next != head)
-		current = current->next;
-	return (current);
-}
 
 void	insert_at_end(t_node	**head)
 {
@@ -54,7 +43,7 @@ void	insert_at_end(t_node	**head)
 	}
 	else
 	{
-		tail = find_tail(*head);
+		tail = (*head)->prev;
 		if (tail == NULL)
 		{
 			// handle not tail found
@@ -78,8 +67,8 @@ void	create_list(void)
 void	initialize_list(void)
 {
 	unsigned int	i;
-	t_node			*current;
 	unsigned int	philo_count;
+	t_node			*current;
 
 	i = 1;
 	philo_count = 1;

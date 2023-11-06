@@ -6,11 +6,11 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:19:04 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/23 13:49:52 by jalves-c         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:41:14 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/philo.h"
+#include "philo.h"
 
 void	ft_putchar_fd(char c, int fd)
 {
