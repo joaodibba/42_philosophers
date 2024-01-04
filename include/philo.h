@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:28:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/11/06 17:20:27 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:11:49 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ void	baby_sitting(void);
 void	*routine(void	*arg);
 
 // time
-u_int64_t	get_time(void);
-u_int64_t	get_current_time(void);
+uint64_t	get_time(void);
+uint64_t	get_current_time(void);
 void		ft_sleep(uint64_t time_to_sleep);
 
 // routine

@@ -56,7 +56,7 @@ void	wait_for_guests(void)
 		if (current->type == PHILO)
 		{
 			pthread_join(current->u_data.philo.thread, NULL);
-			// // if (pthread_join(current->u_data.philo.thread, NULL) != 0)
+			// if (pthread_join(current->u_data.philo.thread, NULL) != 0)
 				// deu merda aqui
 		}
 		current = current->next;

@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 17:22:38 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/11/06 13:41:02 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/04 16:15:05 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ bool	check_if_baby_is_alive(t_node *node)
 	if (node->u_data.philo.state != EAT && diff >= host()->time_to_die)
 	{
 		node->u_data.philo.state = DEAD;
-		printf("%llu"RED" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
+		printf("%lu"RED" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
 		// 
-		// printf(RED"%d"RESET" - last_meal: %llu\n",philo->id, get_current_time() - philo->last_meal);
+		// printf(RED"%d"RESET" - last_meal: %lu\n",philo->id, get_current_time() - philo->last_meal);
 		// TODO: free shit before
 		exit(1); // TODO: REMOVE THIS
 	}
@@ -39,6 +39,15 @@ void	check_if_baby_is_full(t_node *node)
 	if (host()->max_meals > 0 && node->u_data.philo.meal_count == host()->max_meals)
 	{
 		node->u_data.philo.state = FULL;
+		if (host()->max_meals)
+		{	
+			host()->max_meals--;
+			if (host()->max_meals == 0)
+			{
+				printf("something mf %d\n", host()->max_meals);
+				return ;
+			}
+		}		
 		// printf("something mf %d\n", node->u_data.philo.state);
 	}
 }
@@ -50,7 +59,7 @@ void	baby_sitting(void)
 	node = host()->head;
 	while (node)
 	{
-		if (node->type == PHILO)
+		if (node->type == PHILO && node->u_data.philo.state != FULL)
 		{
 			pthread_mutex_lock(&node->u_data.philo.mutex);
 			check_if_baby_is_alive(node);
@@ -60,4 +69,5 @@ void	baby_sitting(void)
 		}
 		node = node->next;
 	}
+	printf(RED"narroyzplayja\n"RESET);	
 }

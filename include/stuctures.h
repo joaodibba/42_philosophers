@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 21:13:36 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/10/31 21:40:24 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/03 18:13:34 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include "philo.h"
 # include <pthread.h>
+# include <stdint.h>
+
 
 typedef enum e_fork_state
 {
@@ -44,7 +46,7 @@ typedef struct s_philo
 	int				id;
 	unsigned int	meal_count;
 	pthread_mutex_t	mutex;
-	u_int64_t		last_meal;
+	uint64_t		last_meal;
 	t_philo_state	state;
 }					t_philo;
 
@@ -78,7 +80,7 @@ typedef struct s_host
 	unsigned int	time_to_sleep;
 	unsigned int	max_meals;
 	unsigned int	node_count;
-	u_int64_t		start_time;
+	uint64_t		start_time;
 	t_node			*head;
 }					t_host;
 

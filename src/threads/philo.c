@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:23:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/11/06 13:41:05 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/03 19:09:11 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,10 @@ void	lonely_dinner(void)
 	node = host()->head;
 	start_time = get_current_time();
 	pthread_mutex_lock(&node->next->u_data.fork.mutex);
-	printf("%llu"YELLOW" %d"RESET" has taken a fork\n", get_time(), node->u_data.philo.id);
+	printf("%lu"YELLOW" %d"RESET" has taken a fork\n", get_time(), node->u_data.philo.id);
 	while (get_current_time() - start_time < host()->time_to_die)
 		ft_sleep(1);
 	node->u_data.philo.state = DEAD;
-	printf("%llu"RED" %d"RESET" died\n", get_time(), node->u_data.philo.id);
 }
 bool	is_full(t_node	*node)
 {
@@ -55,11 +54,11 @@ void	*routine(void	*arg)
 		if (is_full(node) == true)
 			break ;
 		devour(node);
-		// if (is_full(node) == true)
-		// 	break ;
+		if (is_full(node) == true)
+			break ;
 		nap(node);
-		// if (is_full(node) == true)
-		// 	break ;
+		if (is_full(node) == true)
+			break ;
 		contemplate(node);
 	} // constantly check if the state shouldnt be dead
 	return (NULL);
