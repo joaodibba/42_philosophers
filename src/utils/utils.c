@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 21:31:59 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/11/06 13:41:21 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/04 17:26:27 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,13 @@ void	print_list(t_node *head)
 		printf("Node: %d\n", i);
 		if (current_node->type == FORK)
 		{
-			printf(RED"Prev Node Address: %p | Type %d | State: %d\n"\
+			printf(RED"Prev Node Address: %p | Type %d | State: %d\n" \
 			RESET, current_node->prev, current_node->prev->type, \
 			current_node->prev->u_data.philo.state);
 			printf("Current Node Address: %p | Type %d | State: %d\n", \
 			current_node, current_node->type, \
 			current_node->u_data.fork.state);
-			printf(BLUE"Next Node Address: %p | Type %d | State: %d\n"\
+			printf(BLUE"Next Node Address: %p | Type %d | State: %d\n" \
 			RESET, current_node->next, current_node->next->type, \
 			current_node->next->u_data.philo.state);
 		}
@@ -102,7 +102,7 @@ void	print_list(t_node *head)
 			printf("Current Node Address: %p | Type %d | State: %d\n", \
 			current_node, current_node->type, \
 			current_node->u_data.philo.state);
-			printf(BLUE"Next Node Address: %p | Type %d | State: %d\n"\
+			printf(BLUE"Next Node Address: %p | Type %d | State: %d\n" \
 			RESET, current_node->next, current_node->next->type, \
 			current_node->next->u_data.fork.state);
 		}

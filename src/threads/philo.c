@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:23:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/03 19:09:11 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/05 17:13:56 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ void	lonely_dinner(void)
 	node = host()->head;
 	start_time = get_current_time();
 	pthread_mutex_lock(&node->next->u_data.fork.mutex);
-	printf("%lu"YELLOW" %d"RESET" has taken a fork\n", get_time(), node->u_data.philo.id);
+	printf("%llu"YELLOW" %d"RESET" has taken a fork\n", get_time(), node->u_data.philo.id);
 	while (get_current_time() - start_time < host()->time_to_die)
 		ft_sleep(1);
 	node->u_data.philo.state = DEAD;
+	printf("%llu"RED" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
+	pthread_mutex_unlock(&node->next->u_data.fork.mutex);
 }
 bool	is_full(t_node	*node)
 {
@@ -37,6 +39,34 @@ bool	is_full(t_node	*node)
 	pthread_mutex_unlock(&node->u_data.philo.mutex);
 	return (false);
 }
+
+uint64_t	get_diff(uint64_t start, uint64_t last)
+{
+	if (last > 0)
+		return (get_current_time() - last);
+	return (get_current_time() - start);
+}
+
+bool	is_alive(t_node	*node)
+{
+	uint64_t diff;
+
+	if (node->type == PHILO)
+	{
+		pthread_mutex_lock(&node->u_data.philo.mutex);
+		diff = get_diff(host()->start_time, node->u_data.philo.last_meal);
+		if (node->u_data.philo.state != EAT && diff >= host()->time_to_die)
+		{
+			node->u_data.philo.state = DEAD;
+			printf("%llu"RED" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
+			pthread_mutex_unlock(&node->u_data.philo.mutex);
+			return (false);
+		}
+		pthread_mutex_unlock(&node->u_data.philo.mutex);
+	}
+	return (true);
+}
+
 void	*routine(void	*arg)
 {
 	t_node	*node;
@@ -51,15 +81,15 @@ void	*routine(void	*arg)
 		ft_sleep(30); // fix this shit
 	while (true)
 	{
-		if (is_full(node) == true)
-			break ;
 		devour(node);
-		if (is_full(node) == true)
+		if (is_full(node) == true || is_alive(node) == false)
 			break ;
 		nap(node);
-		if (is_full(node) == true)
+		if (is_full(node) == true || is_alive(node) == false)
 			break ;
 		contemplate(node);
+		if (is_full(node) == true || is_alive(node) == false)
+			break ;
 	} // constantly check if the state shouldnt be dead
 	return (NULL);
 }
