@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:23:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/05 17:13:56 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:19:11 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,16 @@ void	lonely_dinner(void)
 	node = host()->head;
 	start_time = get_current_time();
 	pthread_mutex_lock(&node->next->u_data.fork.mutex);
-	printf("%llu"YELLOW" %d"RESET" has taken a fork\n", get_time(), node->u_data.philo.id);
+	printf("%lu"YELLOW" %d"RESET" has taken a fork\n", get_time(), node->u_data.philo.id);
 	while (get_current_time() - start_time < host()->time_to_die)
 		ft_sleep(1);
 	node->u_data.philo.state = DEAD;
-	printf("%llu"RED" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
+	printf("%lu"RED" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
 	pthread_mutex_unlock(&node->next->u_data.fork.mutex);
 }
 bool	is_full(t_node	*node)
 {
 	pthread_mutex_lock(&node->u_data.philo.mutex);
-	// printf("%d -> status: %d -> meals: %d\n", node->u_data.philo.id, node->u_data.philo.state, node->u_data.philo.meal_count);
 	if (node->u_data.philo.state == FULL)
 	{
 		pthread_mutex_unlock(&node->u_data.philo.mutex);
@@ -58,7 +57,7 @@ bool	is_alive(t_node	*node)
 		if (node->u_data.philo.state != EAT && diff >= host()->time_to_die)
 		{
 			node->u_data.philo.state = DEAD;
-			printf("%llu"RED" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
+			printf("%lu"RED" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
 			pthread_mutex_unlock(&node->u_data.philo.mutex);
 			return (false);
 		}
@@ -90,8 +89,6 @@ void	*routine(void	*arg)
 		contemplate(node);
 		if (is_full(node) == true || is_alive(node) == false)
 			break ;
-	} // constantly check if the state shouldnt be dead
+	}
 	return (NULL);
 }
-
-// printf("id: %d | thread %d | meal_count: %d | state %d \n", node->u_data.philo.id, node->u_data.philo.thread, node->u_data.philo.meal_count, node->u_data.philo.state);

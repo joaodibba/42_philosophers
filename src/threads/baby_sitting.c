@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 17:22:38 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/05 17:17:02 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/05 19:32:16 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,38 @@ void	check_if_baby_is_full(t_node *node)
 bool	is_all_full(void)
 {
 	t_node	*node;
-	bool	all_full;
+	static unsigned int full_philo = 0;
 
-	all_full = true;
 	node = host()->head;
-	while (node)
+	while (true)
 	{
-		pthread_mutex_lock(&node->u_data.philo.mutex);
-		if (node->type == PHILO && node->u_data.philo.state != FULL)
+
+		if (node && node->type == FORK)
+			node = node->next;
+		if (node && node->type == PHILO)
 		{
-			all_full = false;
+			pthread_mutex_lock(&node->u_data.philo.mutex);
+			if (node->u_data.philo.state == FULL)
+				full_philo++;
+			if(full_philo == host()->philo)
+				return (true);
 			pthread_mutex_unlock(&node->u_data.philo.mutex);
-			break ;
+			return (false);
+			pthread_mutex_unlock(&node->u_data.philo.mutex);
+			node = node->next;
 		}
-		pthread_mutex_unlock(&node->u_data.philo.mutex);
-		node = node->next;
-		if (node == host()->head)
-			break ;
 	}
-	return (all_full);
+	return (true);
 }
 
 void	baby_sitting(void)
 {
 	t_node *node;
+	bool	all_full = false;
 
 	node = host()->head;
 	if (host()->philosopher_count == 1)
 		return ;
-	while (is_all_full() == false)
-	{
-		// check_if_baby_is_alive(node);
-		check_if_baby_is_full(node);
-		// printf(RED"%d"RESET" - state: %d\n",node->u_data.philo.id , node->u_data.philo.state);
-		pthread_mutex_unlock(&node->u_data.philo.mutex);
-		node = node->next;
-	}
+	while (all_full == false)
+		all_full = is_all_full();
 }
