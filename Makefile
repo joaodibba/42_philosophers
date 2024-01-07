@@ -23,8 +23,7 @@ SRC		:=	src/core/main.c \
 			src/utils/clean.c \
 			src/threads/philo.c \
 			src/threads/routine.c \
-			src/utils/time.c \
-			src/threads/baby_sitting.c
+			src/utils/time.c 
 
 # COLORS
 RED     = \033[0;31m

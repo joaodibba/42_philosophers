@@ -65,6 +65,34 @@ void	wait_for_guests(void)
 	}
 }
 
+
+void	baby_sitting(void)
+{
+	t_node *node;
+	uint64_t diff;
+
+	node = host()->head;
+	while (true)
+	{
+		printf(RESET);
+		if (node->type == PHILO)
+		{
+			pthread_mutex_lock(&node->u_data.philo.mutex);
+			diff = get_diff(host()->start_time, node->u_data.philo.last_meal);
+			printf(RESET);
+			if (node->u_data.philo.state != EAT && diff >= host()->time_to_die)
+			{
+				node->u_data.philo.state = DEAD;
+				// printf("%lu"YELLOW" %d"RESET" died\n", get_time(),  node->u_data.philo.id);
+				pthread_mutex_unlock(&node->u_data.philo.mutex);
+				break ;
+			}
+			pthread_mutex_unlock(&node->u_data.philo.mutex);
+		}
+		node = node->next;
+	}
+}
+
 void	dinner_time(void)
 {
 	create_list();

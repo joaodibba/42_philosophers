@@ -12,12 +12,12 @@
 
 #include "philo.h"
 
-u_int64_t	get_time(void)
+uint64_t	get_time(void)
 {
 	return (get_current_time() - host()->start_time);
 }
 
-u_int64_t	get_current_time(void)
+uint64_t	get_current_time(void)
 {
 	struct timeval time;
 

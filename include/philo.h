@@ -78,6 +78,7 @@ void	*routine(void	*arg);
 uint64_t	get_time(void);
 uint64_t	get_current_time(void);
 void		ft_sleep(uint64_t time_to_sleep);
+uint64_t	get_diff(uint64_t start, uint64_t last);
 
 // routine
 void	contemplate(t_node	*node);

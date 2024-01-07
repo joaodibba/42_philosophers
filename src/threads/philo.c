@@ -30,8 +30,9 @@ void	lonely_dinner(void)
 bool	is_full(t_node	*node)
 {
 	pthread_mutex_lock(&node->u_data.philo.mutex);
-	if (node->u_data.philo.state == FULL)
+	if (host()->max_meals != 0 &&  host()->max_meals == node->u_data.philo.meal_count)
 	{
+		node->u_data.philo.state = FULL;
 		pthread_mutex_unlock(&node->u_data.philo.mutex);
 		return (true);
 	}
@@ -54,6 +55,7 @@ bool	is_alive(t_node	*node)
 	{
 		pthread_mutex_lock(&node->u_data.philo.mutex);
 		diff = get_diff(host()->start_time, node->u_data.philo.last_meal);
+		printf(RED"%d philo id | %lu diff\n"RESET, node->u_data.philo.id, diff);
 		if (node->u_data.philo.state != EAT && diff >= host()->time_to_die)
 		{
 			node->u_data.philo.state = DEAD;
@@ -77,18 +79,14 @@ void	*routine(void	*arg)
 		return (NULL);
 	}
 	if (node->u_data.philo.id % 2 == 0)
-		ft_sleep(30); // fix this shit
+		ft_sleep(10);
 	while (true)
 	{
+		if (is_full(node) == true || is_alive(node) == false)
+			break ;
 		devour(node);
-		if (is_full(node) == true || is_alive(node) == false)
-			break ;
 		nap(node);
-		if (is_full(node) == true || is_alive(node) == false)
-			break ;
 		contemplate(node);
-		if (is_full(node) == true || is_alive(node) == false)
-			break ;
 	}
 	return (NULL);
 }
