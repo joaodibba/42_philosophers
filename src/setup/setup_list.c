@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 18:46:20 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/11/06 17:20:23 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:05:15 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,14 @@ t_node	*create_node(void)
 }
 
 
-void	insert_at_end(t_node	**head)
+int	insert_at_end(t_node	**head)
 {
 	t_node	*new_node;
 	t_node	*tail;
 
 	new_node = create_node();
 	if (new_node == NULL)
-	{
-		// Handle memory allocation failure
-	}
+		return (1);
 	if (*head == NULL)
 	{
 		*head = new_node;
@@ -45,41 +43,24 @@ void	insert_at_end(t_node	**head)
 	{
 		tail = (*head)->prev;
 		if (tail == NULL)
-		{
-			// handle not tail found
-		}
+			return (1);
 		new_node->next = *head;
 		new_node->prev = tail;
 		tail->next = new_node;
 		(*head)->prev = new_node;
 	}
+	return (0);
 }
 
-void	create_list(void)
+bool	create_list(t_host	*host)
 {
 	unsigned int	node_count;
 
-	node_count = host()->node_count;
+	node_count = host->node_count;
 	while (node_count-- > 0)
-		insert_at_end(&(host()->head));
-}
-
-void	initialize_list(void)
-{
-	unsigned int	i;
-	unsigned int	philo_count;
-	t_node			*current;
-
-	i = 1;
-	philo_count = 1;
-	current = host()->head;
-	while (i <= host()->node_count)
 	{
-		if (i % 2 == 0)
-			create_fork_node(current, philo_count);
-		else
-			create_philo_node(current, philo_count++);
-		i++;
-		current = current->next;
+		if (insert_at_end(&(host->head)) != 0)
+			return (false);
 	}
+	return (true);
 }

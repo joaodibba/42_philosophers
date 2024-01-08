@@ -5,45 +5,55 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/30 17:15:19 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/05 19:19:33 by jalves-c         ###   ########.fr       */
+/*   Created: 2023/10/25 19:23:32 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/08 20:56:05 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	devour(t_node	*node)
+// TODO: add the host mutex
+void	message(int id, char *color, char *msg)
 {
-	pthread_mutex_lock(&node->prev->u_data.fork.mutex);
-	printf("%lu"YELLOW" %d"RESET" has taken a fork\n", get_time(), node->u_data.philo.id);
+	pthread_mutex_lock(&(host()->mutex));
+	if (host()->dinning == true)
+		printf("%llu%s %d "RESET"%s\n", get_time(), color, id, msg);
+	pthread_mutex_lock(&(host()->mutex));
+}
+
+void	lonely_dinner(void)
+{
+	t_node		*node;
+	uint64_t	start_time;
+
+	node = host()->head;
+	start_time = get_current_time();
 	pthread_mutex_lock(&node->next->u_data.fork.mutex);
-	printf("%lu"YELLOW" %d"RESET" has taken a fork\n", get_time(), node->u_data.philo.id);
-	pthread_mutex_lock(&node->u_data.philo.mutex);
-	node->u_data.philo.last_meal = get_current_time();
-	node->u_data.philo.state = EAT;
-	node->u_data.philo.meal_count++;
-	pthread_mutex_unlock(&node->u_data.philo.mutex);
-	printf("%lu"GREEN" %d"RESET" is eating\n", get_time(), node->u_data.philo.id);
-	printf("%lu"GREEN" %d"RESET" time tooooooo eating: %d\n", get_time(), node->u_data.philo.id, host()->time_to_eat);
-	ft_sleep(host()->time_to_eat);
+	message(node->u_data.philo.id, BLUE, "has taken a fork");
+	while (get_current_time() - start_time < host()->time_to_die)
+		ft_sleep(1);
+	node->u_data.philo.state = DEAD;
+	message(node->u_data.philo.id, RED, "died");
 	pthread_mutex_unlock(&node->next->u_data.fork.mutex);
-	pthread_mutex_unlock(&node->prev->u_data.fork.mutex);
 }
 
-
-void	nap(t_node	*node)
+void	*routine(void	*arg)
 {
-	pthread_mutex_lock(&node->u_data.philo.mutex);
-	node->u_data.philo.state = SLEEP;
-	printf("%lu"BLUE" %d"RESET" is sleeping\n", get_time(), node->u_data.philo.id);
-	ft_sleep(host()->time_to_sleep);
-	pthread_mutex_unlock(&node->u_data.philo.mutex);
-}
+	t_node	*node;
 
-void	contemplate(t_node	*node)
-{
-	pthread_mutex_lock(&node->u_data.philo.mutex);
-	node->u_data.philo.state = THINK;
-	printf("%lu"PURPLE" %d"RESET" is thinking\n", get_time(), node->u_data.philo.id);
-	pthread_mutex_unlock(&node->u_data.philo.mutex);
+	node = (t_node *)arg;
+	if (host()->philosopher_count == 1)
+	{
+		lonely_dinner();
+		return (NULL);
+	}
+	if (node->u_data.philo.id % 2 == 0)
+		ft_sleep(10);
+	while (true)
+	{
+		devour(node);
+		nap(node);
+		contemplate(node);
+	}
+	return (NULL);
 }

@@ -6,40 +6,51 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:07:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/11/06 13:40:23 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/08 20:45:35 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	wash_the_dishes(void)
+bool	wash_the_dishes(t_host	*host)
 {
 	t_node	*current;
-
-	current = host()->head;
+	bool	status = true;
+	
+	current = host->head;
 	while (current)
 	{
 		if (current->type == FORK)
-			pthread_mutex_destroy(&current->u_data.fork.mutex);
+		{
+			if (pthread_mutex_destroy(&current->u_data.fork.mutex) != 0)
+				status = false;
+		}
 		else if (current->type == PHILO)
-			pthread_mutex_destroy(&current->u_data.philo.mutex);
+		{
+			if (pthread_mutex_destroy(&current->u_data.philo.mutex) != 0)
+				status = false;
+		}
 		current = current->next;
-		if (current == host()->head)
+		if (current == host->head)
 			break ;
 	}
+	return (status);
 }
 
-void	goodbye(void)
+bool goodbye(t_host *host)
 {
-	t_node			*next_node;
-	t_node			*current_node;
+    t_node *next_node;
+    t_node *current_node;
 
-	current_node = host()->head;
-	while (host()->head && current_node != host()->head)
-	{
-		next_node = current_node->next;
+    if (!host || !host->head)
+        return (false);
+    current_node = host->head;
+    while (current_node)
+    {
+        next_node = current_node->next;
         free(current_node);
         current_node = next_node;
-	}
-	host()->head = NULL;
+    }
+    host->head = NULL;
+    return (true);
 }

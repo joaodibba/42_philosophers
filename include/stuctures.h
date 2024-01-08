@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 21:13:36 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/03 18:13:34 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/08 18:54:46 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "philo.h"
 # include <pthread.h>
+# include <stdbool.h>
 # include <stdint.h>
 
 
@@ -74,6 +75,8 @@ typedef struct s_node
 // HOST STRUCTURE
 typedef struct s_host
 {
+	bool			dinning;
+	pthread_mutex_t	mutex;
 	unsigned int	philosopher_count;
 	unsigned int	time_to_die;
 	unsigned int	time_to_eat;
