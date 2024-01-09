@@ -24,13 +24,15 @@ bool	wash_the_dishes(t_host	*host)
 	{
 		if (current->type == PHILO)
 		{
-			pthread_mutex_unlock(&current->u_data.philo.mutex);
+			// pthread_mutex_lock(&current->u_data.philo.mutex);
+			// pthread_mutex_unlock(&current->u_data.philo.mutex);
 			if (pthread_mutex_destroy(&current->u_data.philo.mutex) != 0)
 				status = false;
 		}
 		else if (current->type == FORK)
 		{
-			pthread_mutex_unlock(&current->u_data.fork.mutex);
+			// pthread_mutex_lock(&current->u_data.fork.mutex);
+			// pthread_mutex_unlock(&current->u_data.fork.mutex);
 			if (pthread_mutex_destroy(&current->u_data.fork.mutex) != 0)
 				status = false;
 		}
@@ -38,6 +40,8 @@ bool	wash_the_dishes(t_host	*host)
 		if (current == host->head)
 			break ;
 	}
+	// pthread_mutex_lock(&host->mutex);
+	// pthread_mutex_unlock(&host->mutex);
 	if (pthread_mutex_destroy(&host->mutex) != 0)
 		status = false;
 	return (status);
