@@ -24,7 +24,6 @@ t_node	*create_node(void)
 	return (node);
 }
 
-
 int	insert_at_end(t_node	**head)
 {
 	t_node	*new_node;
@@ -59,7 +58,7 @@ bool	create_list(t_host	*host)
 	node_count = host->node_count;
 	while (node_count-- > 0)
 	{
-		if (insert_at_end(&(host->head)) != 0)
+		if (insert_at_end(&host->head) != 0)
 			return (false);
 	}
 	return (true);

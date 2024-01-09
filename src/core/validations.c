@@ -64,6 +64,7 @@ void	assign_host(int ac, char **av)
 	host()-> head = NULL;
 	host()->node_count = host()->philosopher_count * 2;
 	host()->start_time = get_current_time();
+	host()->dinning = true;
 }
 
 bool	argument_check(int ac, char **av)
@@ -85,6 +86,11 @@ bool	argument_check(int ac, char **av)
 		if (ft_atoi(av[0]) > MAX_PHILO)
 		{
 			put_error(PHILO_VALUE_TOO_BIG);
+			return (false);
+		}
+		if (ft_atoi(av[1]) < MIN_TIME || ft_atoi(av[2]) < MIN_TIME || ft_atoi(av[3]) < MIN_TIME)
+		{
+			put_error(TIME_VALUE_TOO_LOW);
 			return (false);
 		}
 		assign_host(ac, av);

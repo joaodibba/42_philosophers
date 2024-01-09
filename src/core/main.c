@@ -16,6 +16,7 @@ int	main(int ac, char **av)
 {
 	if (argument_check(ac, av) && create_list(host()) && initialize_list(host()))
 	{
+		// print_list(host()->head);
 		baby_sitting(host());
 		wait_for_philos(host());
 	}

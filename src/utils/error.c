@@ -47,4 +47,6 @@ void	put_error(int errno)
 	else if (errno == PHILO_VALUE_TOO_BIG)
 		ft_putendl_fd("<number_of_philosophers> SHOULDN'T BE MORE THAN 200", \
 		STDOUT);
+	else if (errno == TIME_VALUE_TOO_LOW)
+		ft_putendl_fd("<time_to_die> <time_to_eat> <time_to_sleep> SHOULDN'T BE LESSS THAN 60", STDOUT);
 }

@@ -25,6 +25,7 @@
 
 // macros
 # define MAX_PHILO 200
+# define MIN_TIME 60
 
 // macros -> printf colors
 # define RED "\e[0;31m"
@@ -40,6 +41,7 @@
 # define ARGUMENTS_NOT_NUMBERS 2
 # define ARGUMENTS_NOT_POSITIVE_INTEGER 3
 # define PHILO_VALUE_TOO_BIG 4
+# define TIME_VALUE_TOO_LOW 5
 
 // macros -> fd
 # define STDOUT 1
@@ -63,7 +65,7 @@ bool	create_list(t_host	*host);
 bool	wash_the_dishes(t_host	*host);
 bool	goodbye(t_host	*host);
 
-bool	baby_sitting(t_host	*host);
+void	baby_sitting(t_host	*host);
 
 void	message(int id, char *color, char *msg);
 
@@ -75,5 +77,6 @@ int	ft_isdigit(int x);
 int	ft_atoi(const char *str);
 long int	long_atoi(const char *str);
 void	put_error(int errno);
+void	print_list(t_node *head);
 
 #endif

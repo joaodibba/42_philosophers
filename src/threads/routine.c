@@ -18,7 +18,7 @@ void	message(int id, char *color, char *msg)
 	pthread_mutex_lock(&(host()->mutex));
 	if (host()->dinning == true)
 		printf("%lu%s %d "RESET"%s\n", get_time(), color, id, msg);
-	pthread_mutex_lock(&(host()->mutex));
+	pthread_mutex_unlock(&(host()->mutex));
 }
 
 void	lonely_dinner(void)
@@ -29,12 +29,36 @@ void	lonely_dinner(void)
 	node = host()->head;
 	start_time = get_current_time();
 	pthread_mutex_lock(&node->next->u_data.fork.mutex);
-	message(node->u_data.philo.id, BLUE, "has taken a fork");
+	message(node->u_data.philo.id, YELLOW, "has taken a fork");
 	while (get_current_time() - start_time < host()->time_to_die)
 		ft_sleep(1);
 	node->u_data.philo.state = DEAD;
 	message(node->u_data.philo.id, RED, "died");
 	pthread_mutex_unlock(&node->next->u_data.fork.mutex);
+}
+
+bool	am_i_alive(void)
+{
+	pthread_mutex_lock(&(host()->mutex));
+	if (host()->dinning == false)
+	{
+		pthread_mutex_unlock(&(host()->mutex));
+		return (false);
+	}
+	pthread_mutex_unlock(&(host()->mutex));
+	return (true);
+}
+
+bool	am_i_hungry(t_node *node)
+{
+	pthread_mutex_lock(&node->u_data.philo.mutex);
+	if (host()->max_meals > 0 && host()->max_meals == node->u_data.philo.meal_count)
+	{
+		pthread_mutex_unlock(&node->u_data.philo.mutex);
+		return (false);
+	}
+	pthread_mutex_unlock(&node->u_data.philo.mutex);
+	return (true);
 }
 
 void	*routine(void	*arg)
@@ -51,6 +75,8 @@ void	*routine(void	*arg)
 		ft_sleep(10);
 	while (true)
 	{
+		if (!am_i_alive() || !am_i_hungry(node))
+			break ;
 		devour(node);
 		nap(node);
 		contemplate(node);

@@ -51,12 +51,12 @@ bool	initialize_list(t_host	*host)
 	{
 		if (i % 2 == 0)
 		{
-			if (!create_fork_node(current, philo_count))
+			if (create_fork_node(current, philo_count) == 1)
 				return (false);
 		}
 		else
 		{
-			if(!create_philo_node(current, philo_count++))
+			if (create_philo_node(current, philo_count++) == 1)
 				return (false);
 		}
 		i++;

@@ -15,9 +15,9 @@
 void	devour(t_node	*node)
 {
 	pthread_mutex_lock(&node->prev->u_data.fork.mutex);
-	message(node->u_data.philo.id, BLUE, "has taken a fork");
+	message(node->u_data.philo.id, YELLOW, "has taken a fork");
 	pthread_mutex_lock(&node->next->u_data.fork.mutex);
-	message(node->u_data.philo.id, BLUE, "has taken a fork");
+	message(node->u_data.philo.id, YELLOW, "has taken a fork");
 	pthread_mutex_lock(&node->u_data.philo.mutex);
 	node->u_data.philo.last_meal = get_current_time();
 	node->u_data.philo.state = EAT;

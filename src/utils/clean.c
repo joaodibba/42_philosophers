@@ -20,20 +20,22 @@ bool	wash_the_dishes(t_host	*host)
 	current = host->head;
 	while (current)
 	{
-		if (current->type == FORK)
-		{
-			if (pthread_mutex_destroy(&current->u_data.fork.mutex) != 0)
-				status = false;
-		}
-		else if (current->type == PHILO)
+		if (current->type == PHILO)
 		{
 			if (pthread_mutex_destroy(&current->u_data.philo.mutex) != 0)
+				status = false;
+		}
+		else if (current->type == FORK)
+		{
+			if (pthread_mutex_destroy(&current->u_data.fork.mutex) != 0)
 				status = false;
 		}
 		current = current->next;
 		if (current == host->head)
 			break ;
 	}
+	if (pthread_mutex_destroy(&host->mutex) != 0)
+				status = false;
 	return (status);
 }
 
@@ -42,16 +44,17 @@ bool goodbye(t_host *host)
     t_node *next_node;
     t_node *current_node;
 
-    if (!host || !host->head)
+    if (!host->head || !host->head->next)
         return (false);
-    current_node = host->head;
-    while (current_node)
+    current_node = host->head->next;
+    while (current_node && current_node != host->head)
     {
         next_node = current_node->next;
 		if (current_node)
        		free(current_node);
-        current_node = next_node;
+		current_node = next_node;
     }
-    host->head = NULL;
-    return (true);
+	free(host->head);
+	host->head = NULL;
+	return (true);
 }
