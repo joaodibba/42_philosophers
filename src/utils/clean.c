@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:07:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/08 20:45:35 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:32:17 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ bool goodbye(t_host *host)
     while (current_node)
     {
         next_node = current_node->next;
-        free(current_node);
+		if (current_node)
+       		free(current_node);
         current_node = next_node;
     }
     host->head = NULL;

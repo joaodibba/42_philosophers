@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/25 19:23:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/08 20:56:05 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:25:26 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	message(int id, char *color, char *msg)
 {
 	pthread_mutex_lock(&(host()->mutex));
 	if (host()->dinning == true)
-		printf("%llu%s %d "RESET"%s\n", get_time(), color, id, msg);
+		printf("%lu%s %d "RESET"%s\n", get_time(), color, id, msg);
 	pthread_mutex_lock(&(host()->mutex));
 }
 

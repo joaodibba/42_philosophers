@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 18:28:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/08 20:56:41 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/08 21:25:07 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,10 @@ void	message(int id, char *color, char *msg);
 uint64_t	get_time(void);
 uint64_t	get_current_time(void);
 void		ft_sleep(uint64_t time_to_sleep);
+
+int	ft_isdigit(int x);
+int	ft_atoi(const char *str);
+long int	long_atoi(const char *str);
+void	put_error(int errno);
+
 #endif
