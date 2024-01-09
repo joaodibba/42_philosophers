@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/08 17:49:26 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/08 19:35:35 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/09 20:14:19 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	baby_sitting(t_host	*host)
 {
 	t_node *node;
 	uint64_t diff;
+	unsigned int full_count = 0;
 
 	node = host->head;
 	while (true)
@@ -46,7 +47,9 @@ void	baby_sitting(t_host	*host)
 		{
 			pthread_mutex_lock(&node->u_data.philo.mutex);
 			diff = get_diff(host->start_time, node->u_data.philo.last_meal);
-			if (node->u_data.philo.state != EAT && diff >= host->time_to_die)
+			if (node->u_data.philo.state == FULL)
+				full_count++;
+			if (node->u_data.philo.state != EAT && diff >= host->time_to_die) // finished state
 			{
 				message(node->u_data.philo.id, RED, "died");
 				pthread_mutex_lock(&host->mutex);
@@ -59,6 +62,8 @@ void	baby_sitting(t_host	*host)
 			pthread_mutex_unlock(&node->u_data.philo.mutex);
 		}
 		node = node->next;
+		if (full_count == host->philosopher_count)
+			return ;
 	}
 	return ;
 }
