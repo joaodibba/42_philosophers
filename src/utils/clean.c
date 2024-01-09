@@ -15,11 +15,13 @@
 bool	wash_the_dishes(t_host	*host)
 {
 	t_node	*current;
+	int i = 1;
 	bool	status = true;
 	
 	current = host->head;
 	while (current)
 	{
+		printf(RED"this is the %d time\n"RESET, i++);
 		if (current->type == PHILO)
 		{
 			if (pthread_mutex_destroy(&current->u_data.philo.mutex) != 0)
@@ -38,7 +40,20 @@ bool	wash_the_dishes(t_host	*host)
 				status = false;
 	return (status);
 }
-
+/*
+==52130== ---Thread-Announcement------------------------------------------
+==52130== 
+==52130== Thread #1 is the program's root thread
+==52130== 
+==52130== ----------------------------------------------------------------
+==52130== 
+==52130== Thread #1's call to pthread_mutex_destroy failed
+==52130==    with error code 16 (EBUSY: Device or resource busy)
+==52130==    at 0x4850B43: ??? (in /usr/libexec/valgrind/vgpreload_helgrind-amd64-linux.so)
+==52130==    by 0x4021F7: wash_the_dishes (clean.c:32)
+==52130==    by 0x401269: main (main.c:23)
+==52130== 
+*/
 bool goodbye(t_host *host)
 {
     t_node *next_node;

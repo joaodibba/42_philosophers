@@ -17,7 +17,7 @@ void	message(int id, char *color, char *msg)
 {
 	pthread_mutex_lock(&(host()->mutex));
 	if (host()->dinning == true)
-		printf("%llu%s %d "RESET"%s\n", get_time(), color, id, msg);
+		printf("%lu%s %d "RESET"%s\n", get_time(), color, id, msg);
 	pthread_mutex_unlock(&(host()->mutex));
 }
 
