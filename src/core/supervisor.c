@@ -54,8 +54,8 @@ void	baby_sitting(t_host	*host)
 				message(node->u_data.philo.id, RED, "died");
 				pthread_mutex_lock(&host->mutex);
 				host->dinning = false;
-				pthread_mutex_unlock(&host->mutex);
 				node->u_data.philo.state = DEAD;
+				pthread_mutex_unlock(&host->mutex);
 				pthread_mutex_unlock(&node->u_data.philo.mutex);
 				return ;
 			}
