@@ -6,35 +6,34 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:15:19 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/09 20:23:03 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:05:04 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_swap(pthread_mutex_t *a, pthread_mutex_t *b)
+void ft_swap(pthread_mutex_t **a, pthread_mutex_t **b) 
 {
-	pthread_mutex_t *tmp;
-
-	tmp = a;
-	*a = *b;
-	*b = *tmp;
+    pthread_mutex_t *tmp = *a;
+    *a = *b;
+    *b = tmp;
 }
 
-void	devour(t_node	*node)
-{
-	pthread_mutex_t *first;
-	pthread_mutex_t *second;
 
-	first = &node->prev->u_data.fork.mutex;
-	second = &node->prev->u_data.fork.mutex;
-	pthread_mutex_lock(&node->u_data.philo.mutex);
-	if (!(node->u_data.philo.id % 2))
-		ft_swap(first, second);
-	pthread_mutex_lock(first);
-	message(node->u_data.philo.id, YELLOW, "has taken a fork");
-	pthread_mutex_lock(second);
-	message(node->u_data.philo.id, YELLOW, "has taken a fork");
+void devour(t_node *node) 
+{
+    pthread_mutex_t *first = &node->prev->u_data.fork.mutex;
+    pthread_mutex_t *second = &node->next->u_data.fork.mutex;
+
+    pthread_mutex_lock(&node->u_data.philo.mutex);
+    if (!(node->u_data.philo.id % 2))
+        ft_swap(&first, &second);
+    pthread_mutex_unlock(&node->u_data.philo.mutex);
+
+    pthread_mutex_lock(first);
+    message(node->u_data.philo.id, YELLOW, "has taken a fork");
+    pthread_mutex_lock(second);
+    message(node->u_data.philo.id, YELLOW, "has taken a fork");
 	node->u_data.philo.last_meal = get_current_time();
 	node->u_data.philo.state = EAT;
 	node->u_data.philo.meal_count++;
