@@ -12,12 +12,11 @@
 
 #include "philo.h"
 
-// TODO: add the host mutex
 void	message(int id, char *color, char *msg)
 {
 	pthread_mutex_lock(&(host()->mutex));
 	if (host()->dinning == true)
-		printf("%llu%s %d "RESET"%s\n", get_time(), color, id, msg);
+		printf("%lu%s %d "RESET"%s\n", get_time(), color, id, msg);
 	pthread_mutex_unlock(&(host()->mutex));
 }
 
@@ -54,12 +53,14 @@ bool	am_i_alive(void)
 bool	am_i_hungry(t_node *node)
 {
 	pthread_mutex_lock(&node->u_data.philo.mutex);
-	if (host()->meal_limit == true && host()->max_meals == node->u_data.philo.meal_count)
+	if (host()->meal_limit && host()->max_meals == node->u_data.philo.meal_count)
 	{
 		pthread_mutex_unlock(&node->u_data.philo.mutex);
+		// printf(RESET);
 		return (false);
 	}
 	pthread_mutex_unlock(&node->u_data.philo.mutex);
+	// printf(RESET);
 	return (true);
 }
 
@@ -73,8 +74,6 @@ void	*routine(void	*arg)
 		lonely_dinner();
 		return (NULL);
 	}
-	if (node->u_data.philo.id % 2 == 0)
-		ft_sleep(10);
 	while (true)
 	{
 		if (!am_i_alive() || !am_i_hungry(node))

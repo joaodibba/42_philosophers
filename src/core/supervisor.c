@@ -46,24 +46,30 @@ void	baby_sitting(t_host	*host)
 		if (node->type == PHILO)
 		{
 			pthread_mutex_lock(&node->u_data.philo.mutex);
-			diff = get_diff(host->start_time, node->u_data.philo.last_meal);
 			if (node->u_data.philo.state == FULL)
 				full_count++;
-			if (node->u_data.philo.state != EAT && diff >= host->time_to_die) // finished state
+			if (full_count == host->philosopher_count)
+			{
+				pthread_mutex_lock(&host->mutex);
+				host->dinning = false;
+				pthread_mutex_unlock(&host->mutex);
+				return ;
+			}
+			diff = get_diff(host->start_time, node->u_data.philo.last_meal);
+			if (&node->u_data.philo.state != EAT && diff >= host->time_to_die) // finished state
 			{
 				message(node->u_data.philo.id, RED, "died");
 				pthread_mutex_lock(&host->mutex);
 				host->dinning = false;
-				node->u_data.philo.state = DEAD;
 				pthread_mutex_unlock(&host->mutex);
+				node->u_data.philo.state = DEAD;
 				pthread_mutex_unlock(&node->u_data.philo.mutex);
 				return ;
 			}
+
 			pthread_mutex_unlock(&node->u_data.philo.mutex);
 		}
 		node = node->next;
-		if (full_count == host->philosopher_count)
-			return ;
 	}
 	return ;
 }
