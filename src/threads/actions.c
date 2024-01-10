@@ -28,8 +28,6 @@ void devour(t_node *node)
     pthread_mutex_lock(&node->u_data.philo.mutex);
     if (!(node->u_data.philo.id % 2))
         ft_swap(&first, &second);
-    pthread_mutex_unlock(&node->u_data.philo.mutex);
-
     pthread_mutex_lock(first);
     message(node->u_data.philo.id, YELLOW, "has taken a fork");
     pthread_mutex_lock(second);
