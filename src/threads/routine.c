@@ -32,7 +32,10 @@ void	lonely_dinner(void)
 	message(node->u_data.philo.id, YELLOW, "has taken a fork");
 	while (get_current_time() - start_time < host()->time_to_die)
 		ft_sleep(1);
+	
+	pthread_mutex_lock(&node->u_data.philo.mutex);
 	node->u_data.philo.state = DEAD;
+	pthread_mutex_unlock(&node->u_data.philo.mutex);
 	message(node->u_data.philo.id, RED, "died");
 	pthread_mutex_unlock(&node->next->u_data.fork.mutex);
 }
