@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 21:13:36 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/08 18:54:46 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:38:05 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct s_host
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
 	unsigned int	max_meals;
+	bool			meal_limit;
 	unsigned int	node_count;
 	uint64_t		start_time;
 	t_node			*head;

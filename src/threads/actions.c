@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 17:15:19 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/10 19:05:04 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:33:51 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void ft_swap(pthread_mutex_t **a, pthread_mutex_t **b)
     *a = *b;
     *b = tmp;
 }
-
 
 void devour(t_node *node) 
 {

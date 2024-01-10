@@ -6,7 +6,7 @@
 /*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 21:30:35 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/11/06 13:40:51 by jalves-c         ###   ########.fr       */
+/*   Updated: 2024/01/10 19:38:45 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,16 @@ bool	arguments_are_numbers(int ac, char **av)
 
 void	assign_host(int ac, char **av)
 {
+	host()->meal_limit = false;
 	host()->philosopher_count = ft_atoi(av[0]);
 	host()->time_to_die = ft_atoi(av[1]);
 	host()->time_to_eat = ft_atoi(av[2]);
 	host()->time_to_sleep = ft_atoi(av[3]);
 	if (ac == 5)
+	{
 		host()->max_meals = ft_atoi(av[4]);
+		host()->meal_limit = true;
+	}
 	host()-> head = NULL;
 	host()->node_count = host()->philosopher_count * 2;
 	host()->start_time = get_current_time();
