@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 23:46:59 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/08 20:49:34 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:47:04 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 16:47:05 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
 uint64_t	get_current_time(void)
 {
-	struct timeval time;
+	struct timeval		time;
 
 	if (gettimeofday(&time, NULL) < 0)
 	{

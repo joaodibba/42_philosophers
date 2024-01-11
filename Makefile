@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+         #
+#    By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/18 18:24:09 by jalves-c          #+#    #+#              #
-#    Updated: 2024/01/08 21:31:06 by jalves-c         ###   ########.fr        #
+#    Updated: 2024/01/11 18:02:19 by jalves-c         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	= philo
 CC		= @cc
-FLAGS	= -I./include -Wall -Wextra  -pthread -g -fsanitize=thread #-Werror
+FLAGS	= -I./include -Wall -Wextra -Werror -pthread -g #-fsanitize=thread
 OBJ  	= $(patsubst src/%.c, obj/%.o, $(SRC))
 SRC		:=	src/core/main.c \
 			src/core/supervisor.c \
@@ -24,7 +24,7 @@ SRC		:=	src/core/main.c \
 			src/utils/clean.c \
 			src/utils/error.c \
 			src/utils/time.c \
-			src/utils/utils.c 
+			src/utils/utils.c
 
 # COLORS
 RED     = \033[0;31m

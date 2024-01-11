@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   supervisor.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/08 17:49:26 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/09 20:14:19 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:45:48 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 17:55:08 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	wait_for_philos(t_host *host)
 {
-	t_node *current;
+	t_node	*current;
 
 	current = host->head;
 	while (current)
@@ -34,43 +34,52 @@ uint64_t	get_diff(uint64_t start, uint64_t last)
 	return (get_current_time() - start);
 }
 
+bool	check_baby(t_host	*host, t_node *node, unsigned int *full_count)
+{
+	uint64_t		diff;
+
+	if (node->u_data.philo.state == FULL)
+		(*full_count)++;
+	if (*full_count == host->philosopher_count)
+	{
+		pthread_mutex_lock(&host->mutex);
+		host->dinning = false;
+		pthread_mutex_unlock(&host->mutex);
+		return (false);
+	}
+	diff = get_diff(host->start_time, node->u_data.philo.last_meal);
+	if (node->u_data.philo.state != FULL && \
+		diff >= host->time_to_die)
+	{
+		message(node->u_data.philo.id, RED, "died");
+		pthread_mutex_lock(&host->mutex);
+		host->dinning = false;
+		pthread_mutex_unlock(&host->mutex);
+		node->u_data.philo.state = DEAD;
+		return (false);
+	}
+	return (true);
+}
+
 void	baby_sitting(t_host	*host)
 {
-	t_node *node;
-	uint64_t diff;
-	unsigned int full_count = 0;
+	unsigned int	full_count;
+	t_node			*node;
 
 	node = host->head;
+	full_count = 0;
 	while (true)
 	{
 		if (node->type == PHILO)
 		{
 			pthread_mutex_lock(&node->u_data.philo.mutex);
-			if (node->u_data.philo.state == FULL)
-				full_count++;
-			if (full_count == host->philosopher_count)
+			if (check_baby(host, node, &full_count) == false)
 			{
-				pthread_mutex_lock(&host->mutex);
-				host->dinning = false;
-				pthread_mutex_unlock(&host->mutex);
 				pthread_mutex_unlock(&node->u_data.philo.mutex);
-				return ;
+				break ;
 			}
-			diff = get_diff(host->start_time, node->u_data.philo.last_meal);
-			if (node->u_data.philo.state != EAT && diff >= host->time_to_die) // finished state
-			{
-				message(node->u_data.philo.id, RED, "died");
-				pthread_mutex_lock(&host->mutex);
-				host->dinning = false;
-				pthread_mutex_unlock(&host->mutex);
-				node->u_data.philo.state = DEAD;
-				pthread_mutex_unlock(&node->u_data.philo.mutex);
-				return ;
-			}
-
 			pthread_mutex_unlock(&node->u_data.philo.mutex);
 		}
 		node = node->next;
 	}
-	return ;
 }

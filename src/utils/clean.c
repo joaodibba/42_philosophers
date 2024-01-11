@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 19:07:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/08 21:32:17 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:46:27 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 16:46:28 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,9 @@
 bool	wash_the_dishes(t_host	*host)
 {
 	t_node	*current;
-	bool	status = true;
-	
+	bool	status;
+
+	status = true;
 	if (!host || !host->head)
 		return (false);
 	current = host->head;
@@ -28,10 +29,8 @@ bool	wash_the_dishes(t_host	*host)
 				status = false;
 		}
 		else if (current->type == FORK)
-		{
 			if (pthread_mutex_destroy(&current->u_data.fork.mutex) != 0)
 				status = false;
-		}
 		current = current->next;
 		if (current == host->head)
 			break ;
@@ -41,21 +40,21 @@ bool	wash_the_dishes(t_host	*host)
 	return (status);
 }
 
-bool goodbye(t_host *host)
+bool	goodbye(t_host *host)
 {
-    t_node *next_node;
-    t_node *current_node;
+	t_node	*next_node;
+	t_node	*current_node;
 
-    if (!host->head || !host->head->next)
-        return (false);
-    current_node = host->head->next;
-    while (current_node && current_node != host->head)
-    {
-        next_node = current_node->next;
+	if (!host->head || !host->head->next)
+		return (false);
+	current_node = host->head->next;
+	while (current_node && current_node != host->head)
+	{
+		next_node = current_node->next;
 		if (current_node)
-       		free(current_node);
+			free(current_node);
 		current_node = next_node;
-    }
+	}
 	free(host->head);
 	host->head = NULL;
 	return (true);

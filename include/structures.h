@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stuctures.h                                        :+:      :+:    :+:   */
+/*   structures.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/23 21:13:36 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/10 19:38:05 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:45:29 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 16:45:31 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <pthread.h>
 # include <stdbool.h>
 # include <stdint.h>
-
 
 typedef enum e_fork_state
 {

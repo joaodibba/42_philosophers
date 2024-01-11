@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 18:15:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/09 16:20:29 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:45:37 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 16:45:40 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	main(int ac, char **av)
 {
-	if (argument_check(ac, av) && create_list(host()) && initialize_list(host()))
+	if (argument_check(ac, av) && create_list(host()) && \
+		initialize_list(host()))
 	{
 		baby_sitting(host());
 		wait_for_philos(host());

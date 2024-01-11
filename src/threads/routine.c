@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/25 19:23:32 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/10 19:41:03 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:46:22 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 16:46:23 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ bool	am_i_alive(void)
 bool	am_i_hungry(t_node *node)
 {
 	pthread_mutex_lock(&node->u_data.philo.mutex);
-	if (host()->meal_limit && host()->max_meals == node->u_data.philo.meal_count)
+	if (host()->meal_limit && \
+	host()->max_meals == node->u_data.philo.meal_count)
 	{
 		pthread_mutex_unlock(&node->u_data.philo.mutex);
 		return (false);

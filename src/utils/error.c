@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 18:19:04 by jalves-c          #+#    #+#             */
-/*   Updated: 2023/11/06 13:41:14 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:46:58 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 16:46:59 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_putendl_fd(char *s, int fd)
 	ft_putchar_fd('\n', fd);
 }
 
-void	put_error(int errno)
+bool	put_error(int errno)
 {
 	ft_putstr_fd(RED, STDOUT);
 	ft_putstr_fd("ERROR: ", STDOUT);
@@ -48,5 +48,9 @@ void	put_error(int errno)
 		ft_putendl_fd("<number_of_philosophers> SHOULDN'T BE MORE THAN 200", \
 		STDOUT);
 	else if (errno == TIME_VALUE_TOO_LOW)
-		ft_putendl_fd("<time_to_die> <time_to_eat> <time_to_sleep> SHOULDN'T BE LESSS THAN 60", STDOUT);
+	{
+		ft_putstr_fd("<time_to_die> <time_to_eat> ", STDOUT);
+		ft_putendl_fd("<time_to_sleep> SHOULDN'T BE LESSS THAN 60", STDOUT);
+	}
+	return (false);
 }

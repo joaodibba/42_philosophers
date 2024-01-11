@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 21:30:35 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/10 19:38:45 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:45:53 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 16:45:54 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,25 +78,14 @@ bool	argument_check(int ac, char **av)
 		av++;
 		ac--;
 		if (arguments_are_numbers(ac, av) == false)
-		{
-			put_error(ARGUMENTS_NOT_NUMBERS);
-			return (false);
-		}
+			return (put_error(ARGUMENTS_NOT_NUMBERS));
 		if (arguments_are_within_integer_positive_range(ac, av) == false)
-		{
-			put_error(ARGUMENTS_NOT_POSITIVE_INTEGER);
-			return (false);
-		}
+			return (put_error(ARGUMENTS_NOT_POSITIVE_INTEGER));
 		if (ft_atoi(av[0]) > MAX_PHILO)
-		{
-			put_error(PHILO_VALUE_TOO_BIG);
-			return (false);
-		}
-		if (ft_atoi(av[1]) < MIN_TIME || ft_atoi(av[2]) < MIN_TIME || ft_atoi(av[3]) < MIN_TIME)
-		{
-			put_error(TIME_VALUE_TOO_LOW);
-			return (false);
-		}
+			return (put_error(PHILO_VALUE_TOO_BIG));
+		if (ft_atoi(av[1]) < MIN_TIME || ft_atoi(av[2]) < MIN_TIME \
+		|| ft_atoi(av[3]) < MIN_TIME)
+			return (put_error(TIME_VALUE_TOO_LOW));
 		assign_host(ac, av);
 		return (true);
 	}

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jalves-c < jalves-c@student.42lisboa.co    +#+  +:+       +#+        */
+/*   By: jalves-c <jalves-c@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 18:28:46 by jalves-c          #+#    #+#             */
-/*   Updated: 2024/01/08 21:25:07 by jalves-c         ###   ########.fr       */
+/*   Created: 2024/01/11 16:45:24 by jalves-c          #+#    #+#             */
+/*   Updated: 2024/01/11 16:45:26 by jalves-c         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
 
-# include "stuctures.h"
+# include "structures.h"
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -47,37 +47,27 @@
 # define STDOUT 1
 # define STDERR 2
 
-t_host	*host(void);
-
-bool	argument_check(int ac, char **av);
-
-bool	initialize_list(t_host	*host);
-
-void	wait_for_philos(t_host *host);
-
-void	*routine(void	*arg);
-void	devour(t_node	*node);
-void	nap(t_node	*node);
-void	contemplate(t_node	*node);
-
-bool	create_list(t_host	*host);
-
-bool	wash_the_dishes(t_host	*host);
-bool	goodbye(t_host	*host);
-
-void	baby_sitting(t_host	*host);
-
-void	message(int id, char *color, char *msg);
-
+t_host		*host(void);
+bool		argument_check(int ac, char **av);
+bool		initialize_list(t_host	*host);
+void		wait_for_philos(t_host *host);
+void		*routine(void	*arg);
+void		devour(t_node	*node);
+void		nap(t_node	*node);
+void		contemplate(t_node	*node);
+bool		create_list(t_host	*host);
+bool		wash_the_dishes(t_host	*host);
+bool		goodbye(t_host	*host);
+void		baby_sitting(t_host	*host);
+void		message(int id, char *color, char *msg);
 uint64_t	get_time(void);
 uint64_t	get_current_time(void);
 void		ft_sleep(uint64_t time_to_sleep);
-
-int	ft_isdigit(int x);
-int ft_abs(int n);
-int	ft_atoi(const char *str);
+int			ft_isdigit(int x);
+int			ft_abs(int n);
+int			ft_atoi(const char *str);
 long int	long_atoi(const char *str);
-void	put_error(int errno);
-void	print_list(t_node *head);
+bool		put_error(int errno);
+void		print_list(t_node *head);
 
-#endif
+#endif	
