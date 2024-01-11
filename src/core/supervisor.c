@@ -53,10 +53,11 @@ void	baby_sitting(t_host	*host)
 				pthread_mutex_lock(&host->mutex);
 				host->dinning = false;
 				pthread_mutex_unlock(&host->mutex);
+				pthread_mutex_unlock(&node->u_data.philo.mutex);
 				return ;
 			}
 			diff = get_diff(host->start_time, node->u_data.philo.last_meal);
-			if (&node->u_data.philo.state != EAT && diff >= host->time_to_die) // finished state
+			if (node->u_data.philo.state != EAT && diff >= host->time_to_die) // finished state
 			{
 				message(node->u_data.philo.id, RED, "died");
 				pthread_mutex_lock(&host->mutex);

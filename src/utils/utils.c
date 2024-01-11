@@ -12,6 +12,13 @@
 
 #include "philo.h"
 
+int ft_abs(int n)
+{
+	if (n > 0)
+		return (n);
+	return(-n);
+}
+
 t_host	*host(void)
 {
 	static t_host	host;
@@ -90,6 +97,7 @@ void	print_list(t_node *head)
 			printf("Current Node Address: %p | Type %d | State: %d\n", \
 			current_node, current_node->type, \
 			current_node->u_data.fork.state);
+			printf("Current Node Mutex: %p\n", &current_node->u_data.fork.mutex);
 			printf(BLUE"Next Node Address: %p | Type %d | State: %d\n" \
 			RESET, current_node->next, current_node->next->type, \
 			current_node->next->u_data.philo.state);
@@ -102,6 +110,7 @@ void	print_list(t_node *head)
 			printf("Current Node Address: %p | Type %d | State: %d\n", \
 			current_node, current_node->type, \
 			current_node->u_data.philo.state);
+			printf("Current Node Mutex: %p\n", &current_node->u_data.philo.mutex);
 			printf(BLUE"Next Node Address: %p | Type %d | State: %d\n" \
 			RESET, current_node->next, current_node->next->type, \
 			current_node->next->u_data.fork.state);

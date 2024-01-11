@@ -12,7 +12,7 @@
 
 NAME	= philo
 CC		= @cc
-FLAGS	= -I./include -Wall -Wextra  -pthread -g #-fsanitize=address #-Werror
+FLAGS	= -I./include -Wall -Wextra  -pthread -g -fsanitize=thread #-Werror
 OBJ  	= $(patsubst src/%.c, obj/%.o, $(SRC))
 SRC		:=	src/core/main.c \
 			src/core/supervisor.c \

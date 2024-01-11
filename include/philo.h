@@ -74,6 +74,7 @@ uint64_t	get_current_time(void);
 void		ft_sleep(uint64_t time_to_sleep);
 
 int	ft_isdigit(int x);
+int ft_abs(int n);
 int	ft_atoi(const char *str);
 long int	long_atoi(const char *str);
 void	put_error(int errno);

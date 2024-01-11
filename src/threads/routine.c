@@ -56,11 +56,9 @@ bool	am_i_hungry(t_node *node)
 	if (host()->meal_limit && host()->max_meals == node->u_data.philo.meal_count)
 	{
 		pthread_mutex_unlock(&node->u_data.philo.mutex);
-		// printf(RESET);
 		return (false);
 	}
 	pthread_mutex_unlock(&node->u_data.philo.mutex);
-	// printf(RESET);
 	return (true);
 }
 
@@ -74,6 +72,8 @@ void	*routine(void	*arg)
 		lonely_dinner();
 		return (NULL);
 	}
+	if (node->u_data.philo.id % 2 == 0)
+		usleep(100);
 	while (true)
 	{
 		if (!am_i_alive() || !am_i_hungry(node))
